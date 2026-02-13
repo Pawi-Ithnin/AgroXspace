@@ -6,147 +6,43 @@
     <title>Tanda X | Satelit Analitik</title>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <style>
-        :root { 
-            --primary: #1a5c2e; 
-            --secondary: #2ecc71; 
-            --accent: #e67e22; 
-            --dark: #0f172a; 
-            --light: #f8fafc; 
-        }
-
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            margin: 0; 
-            background: var(--light); 
-            color: var(--dark); 
-            overflow: hidden;
-        }
-
-        /* --- SKRIN BAYARAN (OVERLAY) --- */
-        #payment-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.98); z-index: 10000;
-            display: flex; align-items: center; justify-content: center; 
-            backdrop-filter: blur(10px); transition: 0.5s;
-        }
-
-        .payment-card {
-            background: white; padding: 30px; border-radius: 24px; 
-            text-align: center; max-width: 380px; width: 90%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-
-        .qr-box { 
-            background: #f1f5f9; padding: 20px; border-radius: 16px; 
-            margin: 20px 0; border: 2px solid var(--primary); 
-        }
-
-        .btn-wa { 
-            display: block; background: #25D366; color: white; 
-            padding: 14px; border-radius: 12px; text-decoration: none; 
-            font-weight: bold; margin-bottom: 15px; transition: 0.3s;
-        }
-
-        .pass-group { 
-            display: flex; gap: 10px; border-top: 1px solid #eee; padding-top: 20px; 
-        }
-
-        input { 
-            width: 100%; padding: 12px; border: 2px solid #e2e8f0; 
-            border-radius: 10px; outline: none; font-size: 16px;
-        }
-
-        /* --- DASHBOARD LAYOUT --- */
-        .app-container { display: flex; height: 100vh; }
-
-        .sidebar { 
-            width: 320px; background: white; padding: 25px; 
-            box-shadow: 4px 0 15px rgba(0,0,0,0.05); 
-            display: flex; flex-direction: column; z-index: 900; 
-        }
-
-        .main-view { flex: 1; position: relative; }
-
-        #map { height: 100%; width: 100%; }
-
-        .btn-scan { 
-            width: 100%; padding: 15px; background: var(--primary); 
-            color: white; border: none; border-radius: 10px; 
-            font-weight: bold; cursor: pointer; margin-top: 10px; 
-        }
-
-        .btn-report { 
-            width: 100%; padding: 12px; background: white; 
-            color: var(--primary); border: 2px solid var(--primary); 
-            border-radius: 10px; font-weight: bold; cursor: pointer; 
-            margin-top: 15px; display: none; 
-        }
-
-        /* --- STATS OVERLAY --- */
-        .stats-overlay { 
-            position: absolute; bottom: 20px; left: 20px; right: 20px; 
-            display: grid; grid-template-columns: repeat(3, 1fr); 
-            gap: 15px; z-index: 800; 
-        }
-
-        .stat-card { 
-            background: rgba(255, 255, 255, 0.95); padding: 15px; 
-            border-radius: 15px; text-align: center; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-        }
-
-        /* --- RESPONSIVE & PRINT --- */
-        @media (max-width: 768px) { 
-            .app-container { flex-direction: column; } 
-            .sidebar { width: 100%; box-sizing: border-box; } 
-            #map { height: 350px; flex: none; } 
-            .stats-overlay { position: relative; bottom: 0; left: 0; right: 0; padding: 15px; } 
-        }
-        
-        @media print { 
-            .sidebar, #payment-overlay, .leaflet-control-zoom { display: none !important; } 
-            .main-view { width: 100%; }
-            .stats-overlay { position: static; display: grid; margin-top: 20px; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="payment-overlay">
     <div class="payment-card">
-        <h2 style="color:var(--primary); margin:0;">Tanda X Premium</h2>
+        <h2 style="color:var(--primary); margin:0;">Agro X Space</h2>
         <p style="font-size:13px; color:#64748b;">Akses Satelit Harian (Sekali Masuk)</p>
-        <div style="font-size:40px; font-weight:900; color:var(--primary); margin:10px 0;">RM 10</div>
+        <div class="price-tag">RM 15</div>
         
         <div class="qr-box">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=DUITNOW_RM10" alt="QR RM10" style="width:180px;">
-            <p style="font-size:11px; margin-top:8px; font-weight:bold;">TANDA X ENTERPRISE</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=DUITNOW_RM10" alt="QR RM10">
+            <p class="company-name">TANDA X </p>
         </div>
 
-        <a href="https://wa.me/60123456789?text=Saya%20dah%20bayar%20RM10%20untuk%20TandaX.%20Ini%20resitnya.%20Minta%20password." target="_blank" class="btn-wa">HANTAR RESIT (WHATSAPP)</a>
+        <a href="https://wa.me/60102857165?text=Saya%20dah%20bayar%20RM10%20untuk%20TandaX.%20Ini%20resitnya.%20Minta%20password." target="_blank" class="btn-wa">HANTAR RESIT (WHATSAPP)</a>
         
         <div class="pass-group">
             <input type="text" id="pass-input" placeholder="Kod Password">
-            <button onclick="checkPass()" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer; font-weight:bold;">MASUK</button>
+            <button onclick="checkPass()" class="btn-enter">MASUK</button>
         </div>
-        <p style="font-size:10px; color:#94a3b8; margin-top:15px;">*Password sah untuk akses sesi hari ini sahaja.</p>
+        <p class="disclaimer">*Password sah untuk akses sesi hari ini sahaja.</p>
     </div>
 </div>
 
 <div class="app-container">
     <div class="sidebar">
-        <h2 style="color:var(--primary); margin:0;">🌍 Tanda X</h2>
-        <p style="font-size:11px; color:#94a3b8; font-weight:bold; margin-bottom:20px;">SATELIT ANALITIK v1.0</p>
+        <h2 class="brand-title">🌍 Tanda X</h2>
+        <p class="app-version">SATELIT ANALITIK v1.0</p>
 
-        <div style="background:#f1f5f9; padding:15px; border-radius:12px;">
-            <label style="font-size:11px; font-weight:bold;">LOKASI LADANG:</label>
-            <input type="text" id="loc" placeholder="Cth: Segamat, Johor" style="margin-top:5px;">
+        <div class="input-section">
+            <label class="input-label">LOKASI LADANG:</label>
+            <input type="text" id="loc" placeholder="Cth: Segamat, Johor">
             <button class="btn-scan" onclick="runScan()">IMBAS LADANG</button>
         </div>
 
-        <div id="ai-msg" style="margin-top:20px; font-size:13px; color:#475569; border-left:3px solid var(--secondary); padding-left:10px;">
+        <div id="ai-msg">
             Sila masukkan lokasi untuk imbasan kesihatan tanaman.
         </div>
 
@@ -156,9 +52,18 @@
     <div class="main-view">
         <div id="map"></div>
         <div class="stats-overlay">
-            <div class="stat-card"><small>KESUBURAN (NDVI)</small><h2 id="v1" style="color:var(--primary);">--</h2></div>
-            <div class="stat-card"><small>KELEMBAPAN</small><h2 id="v2" style="color:var(--accent);">--</h2></div>
-            <div class="stat-card"><small>STATUS AI</small><h2 id="v3" style="font-size:18px;">SEDIA</h2></div>
+            <div class="stat-card">
+                <small>KESUBURAN (NDVI)</small>
+                <h2 id="v1" class="val-primary">--</h2>
+            </div>
+            <div class="stat-card">
+                <small>KELEMBAPAN</small>
+                <h2 id="v2" class="val-accent">--</h2>
+            </div>
+            <div class="stat-card">
+                <small>STATUS AI</small>
+                <h2 id="v3" class="val-status">SEDIA</h2>
+            </div>
         </div>
     </div>
 </div>
