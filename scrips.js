@@ -1,6 +1,6 @@
 /**
  * Tanda X - Logic Script
- * Password: TANDAX10
+ * Password: TANDAX22
  */
 
 let map, marker, circle;
