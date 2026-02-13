@@ -1,196 +1,131 @@
-:root {
-    --primary-color: #1a5c2e;    /* Hijau Hutan (Komersial) */
-    --secondary-color: #2ecc71;  /* Hijau Daun (Subur) */
-    --accent-color: #e67e22;     /* Jingga (Amaran/Tindakan) */
-    --danger-color: #d32f2f;     /* Merah (Kritikal) */
-    --bg-light: #f4f7f6;
-    --text-dark: #2c3e50;
-    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+:root { 
+    --primary: #1a5c2e; 
+    --secondary: #2ecc71; 
+    --accent: #e67e22; 
+    --dark: #0f172a; 
+    --light: #f8fafc; 
 }
 
 body { 
     font-family: 'Inter', -apple-system, sans-serif; 
     margin: 0; 
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-}
-
-/* Layout Container */
-.app-container {
-    display: flex;
-    height: 100vh;
+    background: var(--light); 
+    color: var(--dark); 
     overflow: hidden;
 }
 
-/* SIDEBAR - Panel Kawalan */
-.sidebar {
-    width: 380px;
-    background: white;
-    box-shadow: var(--shadow);
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
+/* --- OVERLAY BAYARAN --- */
+#payment-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.98); z-index: 10000;
+    display: flex; align-items: center; justify-content: center; 
+    backdrop-filter: blur(10px); transition: 0.5s;
 }
 
-.brand-section {
-    margin-bottom: 30px;
+.payment-card {
+    background: white; padding: 30px; border-radius: 24px; 
+    text-align: center; max-width: 380px; width: 90%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
-.brand-section h1 {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--primary-color);
-    letter-spacing: -1px;
-    margin: 0;
+.price-tag {
+    font-size: 40px; font-weight: 900; color: var(--primary); margin: 10px 0;
 }
 
-.brand-section span {
-    font-size: 12px;
-    color: #95a5a6;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.qr-box { 
+    background: #f1f5f9; padding: 20px; border-radius: 16px; 
+    margin: 20px 0; border: 2px solid var(--primary); 
 }
 
-/* Kad Carian */
-.search-card {
-    background: #f8faf9;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #edf2f0;
-    margin-bottom: 25px;
+.qr-box img { width: 180px; }
+
+.company-name { font-size: 11px; margin-top: 8px; font-weight: bold; }
+
+.btn-wa { 
+    display: block; background: #25D366; color: white; 
+    padding: 14px; border-radius: 12px; text-decoration: none; 
+    font-weight: bold; margin-bottom: 15px; transition: 0.3s;
 }
 
-.search-card label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #7f8c8d;
-    display: block;
-    margin-bottom: 8px;
+.pass-group { 
+    display: flex; gap: 10px; border-top: 1px solid #eee; padding-top: 20px; 
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 14px;
-    border: 2px solid #e0e6e4;
-    border-radius: 10px;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+.btn-enter {
+    background: var(--primary); color: white; border: none; 
+    padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;
 }
 
-input[type="text"]:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(26, 92, 46, 0.1);
+.disclaimer { font-size: 10px; color: #94a3b8; margin-top: 15px; }
+
+/* --- DASHBOARD --- */
+.app-container { display: flex; height: 100vh; }
+
+.sidebar { 
+    width: 320px; background: white; padding: 25px; 
+    box-shadow: 4px 0 15px rgba(0,0,0,0.05); 
+    display: flex; flex-direction: column; z-index: 900; 
 }
 
-.btn-primary {
-    width: 100%;
-    background: var(--primary-color);
-    color: white;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.brand-title { color: var(--primary); margin: 0; }
+.app-version { font-size: 11px; color: #94a3b8; font-weight: bold; margin-bottom: 20px; }
+
+.input-section { background: #f1f5f9; padding: 15px; border-radius: 12px; }
+.input-label { font-size: 11px; font-weight: bold; }
+
+input { 
+    width: 100%; padding: 12px; border: 2px solid #e2e8f0; 
+    border-radius: 10px; outline: none; font-size: 16px; box-sizing: border-box;
 }
 
-.btn-primary:hover {
-    background: #124522;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(26, 92, 46, 0.2);
+.btn-scan { 
+    width: 100%; padding: 15px; background: var(--primary); 
+    color: white; border: none; border-radius: 10px; 
+    font-weight: bold; cursor: pointer; margin-top: 10px; 
 }
 
-/* Status Insight Box */
-.insight-box {
-    flex-grow: 1;
-    background: #ffffff;
-    border-left: 4px solid var(--secondary-color);
-    padding: 15px;
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #576574;
+#ai-msg {
+    margin-top: 20px; font-size: 13px; color: #475569; 
+    border-left: 3px solid var(--secondary); padding-left: 10px;
 }
 
-/* MAIN VIEW & MAP */
-.main-view {
-    flex-grow: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+.btn-report { 
+    width: 100%; padding: 12px; background: white; 
+    color: var(--primary); border: 2px solid var(--primary); 
+    border-radius: 10px; font-weight: bold; cursor: pointer; 
+    margin-top: 15px; display: none; 
 }
 
-#map {
-    height: 100%;
-    width: 100%;
+.main-view { flex: 1; position: relative; }
+#map { height: 100%; width: 100%; }
+
+/* --- STATS --- */
+.stats-overlay { 
+    position: absolute; bottom: 20px; left: 20px; right: 20px; 
+    display: grid; grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; z-index: 800; 
 }
 
-/* STATS OVERLAY (Atas Peta) */
-.stats-overlay {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    right: 30px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    z-index: 999;
+.stat-card { 
+    background: rgba(255, 255, 255, 0.95); padding: 15px; 
+    border-radius: 15px; text-align: center; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
 }
 
-.stat-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border: 1px solid rgba(255,255,255,0.3);
+.val-primary { color: var(--primary); margin: 5px 0 0 0; }
+.val-accent { color: var(--accent); margin: 5px 0 0 0; }
+.val-status { font-size: 18px; margin: 5px 0 0 0; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) { 
+    .app-container { flex-direction: column; overflow-y: auto; } 
+    .sidebar { width: 100%; } 
+    #map { height: 350px; flex: none; } 
+    .stats-overlay { position: relative; bottom: 0; left: 0; right: 0; padding: 15px; } 
 }
 
-.stat-card small {
-    display: block;
-    font-size: 10px;
-    font-weight: 800;
-    color: #95a5a6;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-
-.stat-card .value {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--primary-color);
-}
-
-/* Lead Gen Widget */
-.premium-tag {
-    background: #fff3e0;
-    color: #e67e22;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 20px;
-    border: 1px solid #ffe0b2;
-}
-
-/* RESPONSIVE - Sangat Penting Untuk Mobile */
-@media (max-width: 900px) {
-    .app-container { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; padding: 20px; box-sizing: border-box; }
-    .stats-overlay { 
-        position: relative; 
-        bottom: 0; left: 0; right: 0; 
-        grid-template-columns: 1fr 1fr;
-        padding: 20px;
-        background: white;
-    }
-    #map { height: 400px; }
+@media print { 
+    .sidebar, #payment-overlay, .leaflet-control-zoom { display: none !important; } 
+    .main-view { width: 100%; }
+    .stats-overlay { position: static; display: grid; margin-top: 20px; }
 }
